@@ -1,0 +1,37 @@
+<html ng-app="AppModule">
+
+<head>
+  <title>CoinBot</title>
+  <link rel="stylesheet" href="./lib/amcharts3/amcharts/plugins/export/export.css">
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+
+<body ng-controller="MainCtr">
+  <div id="chartdiv"></div>
+
+  <div id="toolbar">
+    <span><b>USD:</b> {{ saldoUsd | currency }}</span>
+    <span><b>BTC:</b> {{ saldoBtc | number: 10 }}</span>
+
+    <div class="trade">
+      <input type="number" ng-model="valorTrade">
+      <select ng-options="item as item.valor for item in comboTrade track by item.chave"
+              ng-model="tipoTrade">
+      </select>
+
+      <button ng-click="executarTrade()">Enviar</button>
+    </div>
+  </div>
+
+  <script src="./socket.io/socket.io.js"></script>
+  <script src="./lib/angular/angular.min.js"></script>
+  <script src="./lib/amcharts3/amcharts/amcharts.js"></script>
+  <script src="./lib/amcharts3/amcharts/serial.js"></script>
+  <script src="./lib/amcharts3/amcharts/themes/light.js"></script>
+  <script src="./lib/amcharts3/amcharts/plugins/responsive/responsive.min.js"></script>
+  <script src="./lib/amcharts3/amcharts/plugins/animate/animate.min.js"></script>
+  <script src="./lib/amcharts3/amcharts/plugins/export/export.min.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+
+</html>
