@@ -3,8 +3,7 @@ const express = require('express');
 const { Server } = require('http');
 const { SMA } = require('technicalindicators');
 
-const API_URL = 'https://api.nomics.com';
-const API_KEY = '';
+const API_URL = 'https://api.coincap.io/v2';
 const PERIODO_MA = 10;
 const LIMITE = 10;
 const STOP = -1;
@@ -24,12 +23,12 @@ app.use(express.static('public'));
 
 function montarParametros() {
   const params = {
-    uri: `${API_URL}/v1/exchange_candles`,
+    uri: `${API_URL}/candles`,
     qs: {
-      key: API_KEY,
-      interval: '1m',
+      interval: 'm1',
       exchange: 'binance',
-      market: 'BTCUSDT',
+      baseId: 'bitcoin',
+      quoteId: 'tether',
     },
     json: true
   };
@@ -42,9 +41,9 @@ async function buscarCandles() {
     montarParametros()
   );
 
-  dados = dados.map(candle => {
+  dados = dados.data.map(candle => {
     return {
-      date: new Date(candle.timestamp),
+      date: new Date(candle.period),
       low: +candle.low,
       open: +candle.open,
       close: +candle.close,
